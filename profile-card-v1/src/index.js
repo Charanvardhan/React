@@ -2,6 +2,37 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./styles.css";
 
+const agentSkills = [
+  {
+    skill: "python",
+    level: "beginner",
+    color: "#4CAF50",
+  },
+  {
+    skill: "pytorch",
+    level: "intermediate",
+    color: "#FF9800",
+  },
+
+  {
+    skill: "llmops",
+    level: "advanced",
+    color: "#F44336",
+  },
+  {
+    skill: "vllm",
+    level: "advanced",
+    color: "#F44336",
+  },
+  {
+    skill: "rag",
+    level: "intermediate",
+    color: "#FF9800",
+  },
+];
+
+export default agentSkills;
+
 function App() {
   return (
     <div className="card">
@@ -23,20 +54,25 @@ function Avatar() {
 function SkillList() {
   return (
     <div className="skill-list">
-      <Skill name="Python" emoji="🐍" color="#E34F26" />
-      <Skill name="PyTorch" emoji="🔥" color="#1572B6" />
-      <Skill name="JAX" emoji="⚡" color="pink" />
-      <Skill name="Hugging Face" emoji="🤗" color="#FF6F00" />
-      <Skill name="FastAPI" emoji="⚡" color="#009688" />
+      {agentSkills.map((item) => (
+        <Skill skillObj={item} key={item.skill} />
+      ))}
     </div>
   );
 }
 
-function Skill(props) {
+function Skill({ skillObj }) {
+  // if (skillObj.level === "beginner") var emoji = "👶";
+  // else if (skillObj.level === "intermediate") var emoji = "👍";
+  // else if (skillObj.level === "advanced") var emoji = "💪";
   return (
-    <div className="skill" style={{ backgroundColor: props.color }}>
-      <span>{props.name}</span>
-      <span>{props.emoji}</span>
+    <div className="skill" style={{ backgroundColor: skillObj.color }}>
+      <span>{skillObj.skill}</span>
+      <span>
+        {skillObj.level === "begineer" && "👶"}
+        {skillObj.level === "intermediate" && "👍"}
+        {skillObj.level === "advanced" && "💪"}
+      </span>
     </div>
   );
 }
