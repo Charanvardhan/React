@@ -47,30 +47,37 @@ function FlashCards() {
   const [selected, setSelected] = useState(null);
 
   function handleClick(id) {
-    setSelected(id);
+    setSelected(id !== selected ? id : null);
   }
 
   return (
     <ul className="flashcards">
       {/* <Card question="hi" answer="-" /> */}
       {questions.map((item) => (
-        <Card
-          questionId={item.id}
-          question={item.question}
-          answer={item.answer}
-          select={selected}
-          onClick={() => handleClick(item.id)}
+        // <Card
+        //   questionId={item.id}
+        //   question={item.question}
+        //   answer={item.answer}
+        //   select={selected}
+        //   onClick={() => handleClick(item.id)}
+        //   key={item.id}
+        // />
+        <div
           key={item.id}
-        />
+          onClick={() => handleClick(item.id)}
+          className={item.id === selected ? "selected" : ""}
+        >
+          <p>{item.id === selected ? item.answer : item.question}</p>
+        </div>
       ))}
     </ul>
   );
 }
 
-function Card({ questionId, question, answer, select, onClick }) {
-  return (
-    <div className={questionId === select ? "selected" : ""} onClick={onClick}>
-      <p>{questionId === select ? answer : question}</p>
-    </div>
-  );
-}
+// function Card({ questionId, question, answer, select, onClick }) {
+//   return (
+//     <div className={questionId === select ? "selected" : ""} onClick={onClick}>
+//       <p>{questionId === select ? answer : question}</p>
+//     </div>
+//   );
+// }
