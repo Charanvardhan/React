@@ -25,6 +25,8 @@ export default function App() {
 }
 
 function Accordion({ faqs }) {
+  const [curOpen, setCurOpen] = useState(null);
+
   return (
     <div className="accordion">
       {faqs.map((faq, index) => (
@@ -32,19 +34,26 @@ function Accordion({ faqs }) {
           key={index}
           faq={faq}
           count={index + 1}
-          // open={open}
-          // setOpen={onClickHandler}
-        />
+          curOpen={curOpen}
+          setOpen={setCurOpen}
+        >
+          {faq.text}{" "}
+        </Item>
       ))}
     </div>
   );
 }
 
-function Item({ faq, count }) {
-  const [open, setOpen] = useState(false);
+function Item({ faq, count, curOpen, setOpen, children }) {
+  // const [open, setOpen] = useState(false);
 
+  // function onClickHandler() {
+  //   setOpen((open) => !open);
+  // }
+  const open = curOpen === count;
   function onClickHandler() {
-    setOpen((open) => !open);
+    // setOpen(count);
+    setOpen(open ? null : count);
   }
 
   return (
@@ -53,7 +62,7 @@ function Item({ faq, count }) {
       <p className="title">{faq.title}</p>
       <p className="icon">{open ? "-" : "+"}</p>
       {/* <p className="content-box">{open ? faq.text : ""}</p> */}
-      {open && <div className="content-box">{faq.text}</div>}
+      {open && <div className="content-box">{children}</div>}
     </div>
   );
 }
